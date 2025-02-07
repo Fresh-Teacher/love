@@ -15,52 +15,106 @@
   <link rel="stylesheet" href="styles.css">
   <title>My Valentine 🌹</title>
   <style>
-    /* Reset default margin and padding */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden; /* Prevent scrolling */
+      font-family: Arial, sans-serif;
     }
 
-    /* Add background image */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #modal {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .modal-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #play-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #cancel-btn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #blocked-content {
+      display: none;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    #play-button:hover {
+      background-color: #ff1744;
+    }
+
+    /* Original body styles */
     body {
-      background-image: url('Photo from Fresh Teacher (9).jpg'); /* Replace with your image path */
+      background-image: url('Photo from Fresh Teacher (9).jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       background-attachment: fixed;
+      overflow: hidden;
     }
 
-    /* Ensure the content container takes full height and centers content */
     #ui {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh; /* Full viewport height */
-      overflow-y: auto; /* Allow scrolling only if content overflows */
-      position: relative; /* Ensure content stays above the background */
-      padding: 20px; /* Add padding to prevent text from touching edges */
-      box-sizing: border-box; /* Include padding in height calculation */
+      height: 100vh;
+      overflow-y: auto;
+      position: relative;
+      padding: 20px;
+      box-sizing: border-box;
+      display: none; /* Initially hidden */
     }
 
-    /* Style for the love divs */
     .love {
       text-align: center;
-      margin: 10px 0; /* Adjust spacing as needed */
-      color: white; /* Ensure text is visible on the background */
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for better readability */
-      font-size: 5vw; /* Responsive font size */
-      white-space: nowrap; /* Prevent text from wrapping */
+      margin: 10px 0;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-size: 5vw;
+      white-space: nowrap;
     }
 
-    /* Media query for mobile devices */
     @media (max-width: 768px) {
       .love {
-        font-size: 8vw; /* Larger font size for smaller screens */
-        white-space: normal; /* Allow text to wrap */
+        font-size: 8vw;
+        white-space: normal;
       }
     }
   </style>
@@ -697,8 +751,44 @@
      </div> 
     </div> 
    </div> 
-  <audio autoplay loop>
+   <div id="overlay">
+    <div id="modal">
+      <h2>Hello Bae,</h2>
+      <p>Will you be my Valentine? 🌹</p>
+      <div class="modal-buttons">
+        <button id="play-btn" class="modal-button">YES ✔️</button>
+        <button id="cancel-btn" class="modal-button">NO ❌</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="blocked-content">
+    <h2>You broke my heart 💔</h2>
+  </div>
+
+  <audio id="background-music" loop>
     <source src="byamunda.mp3" type="audio/mpeg">
   </audio>
+
+  <script>
+    // Check if access was previously blocked
+    if (localStorage.getItem('accessBlocked') === 'true') {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('blocked-content').style.display = 'flex';
+    }
+
+    document.getElementById('play-btn').addEventListener('click', function() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('ui').style.display = 'flex';
+      document.getElementById('background-music').play();
+    });
+
+    document.getElementById('cancel-btn').addEventListener('click', function() {
+      // Permanently block access
+      localStorage.setItem('accessBlocked', 'true');
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('blocked-content').style.display = 'flex';
+    });
+  </script>
  </body>
 </html>
