@@ -37,12 +37,42 @@
 
   <title>My Valentine 🌹</title>
   <style>
-    body {
-      background-image: url('Photo from Fresh Teacher (9).jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
+   /* Reset default margin and padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+/* Add background image */
+body {
+    background-image: url('Photo from Fresh Teacher (9).jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Ensure the content container takes full height and centers content */
+#ui {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto; /* Allow scrolling only if content overflows */
+    position: relative; /* Ensure content stays above the background */
+}
+
+/* Style for the love divs */
+.love {
+    text-align: center;
+    margin: 10px 0; /* Adjust spacing as needed */
+    color: white; /* Ensure text is visible on the background */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow for better readability */
+}
   </style>
  </head> 
  <body mpa-version="9.0.21" mpa-extension-id="ibefaeehajgcpooopoegkifhgecigeeg">
